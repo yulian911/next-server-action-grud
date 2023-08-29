@@ -65,6 +65,41 @@
     --ring: 212.7 26.8% 83.9%;
   }
 }
+
+.gallery{
+  width: 95%;
+  margin:40px auto;
+  columns: 5 340px;
+  gap:15px
+}
+
+.photo_container {
+  width: 80%;
+  height: 90%;
+  background: white;
+  position: fixed;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index:100;
+  padding: 50px;
+  box-shadow:0 0 30px rgba(0,0,0,0.3);
+  overflow:hidden;
+}
+.modal{
+  width: 100%;
+  height: 100vh;
+  backdrop-filter: blur(5px);
+  position:fixed;
+  top:0;
+  left: 0;
+  z-index:99
+
+
+}
  
 @layer base {
   * {

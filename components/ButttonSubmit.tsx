@@ -1,5 +1,6 @@
 'use client'
 import { experimental_useFormStatus as useFormStatus } from 'react-dom'
+import { Button } from "@/components/ui/button"
 
 type Props = {
   value:string
@@ -8,8 +9,8 @@ type Props = {
 const ButttonSubmit = ({value}: Props) => {
   const { pending } = useFormStatus()
   return (
-    <button disabled={pending} type='submit'>{ pending ? 'Loading...' : value}</button>
-  )
+    <Button variant="outline" disabled={pending} type='submit'>{ pending ? 'Loading...' : value}</Button>
+    )
 }
 
 export default ButttonSubmit

@@ -4,6 +4,7 @@ import { Post } from '@/types/postType'
 import React,{useRef} from 'react'
 import ButttonSubmit from './ButttonSubmit'
 import { useAppContext } from '@/context/appContext'
+import { Input } from "@/components/ui/input"
 
 
 type Props = {}
@@ -31,15 +32,17 @@ const formRef =useRef<any>(null)
   }
   return (
     <form ref={formRef} action={handleAction} className='flex gap-[20px] my-[30px] mx-0'>
-      <input  name='title' type='text' placeholder='title' required defaultValue={editPost?.title}/>
-      <input name='image' type='text' placeholder='url' required defaultValue={editPost?.image}/>
-      {editPost ?
+
+      <Input name='title' type='text' placeholder='title' required defaultValue={editPost?.title}/>
+      <Input name='image' type='text' placeholder='url' required defaultValue={editPost?.image}/>
+      
+      {/* {editPost ?
       
       
       <ButttonSubmit value='Update'/>
-      :
+      : */}
       <ButttonSubmit value='Create'/>
-    }
+    {/* } */}
 
     </form>
   )
