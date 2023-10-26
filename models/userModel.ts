@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -12,15 +12,14 @@ const userSchema = new mongoose.Schema({
   },
   image: String,
   bio: String,
-  posts:[
+  posts: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Posts",
-    }
-  ]
-
+      ref: 'Posts',
+    },
+  ],
 });
 
-const User = mongoose.models.User || mongoose.model("User", userSchema);
+const User = mongoose.models?.User || mongoose.model('User', userSchema);
 
 export default User;

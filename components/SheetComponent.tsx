@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import {
   Sheet,
@@ -12,16 +13,17 @@ import { Plus } from 'lucide-react';
 import PostForm from './PostForm';
 import { getAuthSession } from '@/lib/nextauth';
 import SignInButton from './SignInButton';
+import { Session } from 'next-auth';
 
-type Props = {};
+type Props = {
+  session: Session | null;
+};
 
-const SheetComponent = async (props: Props) => {
-  const session = await getAuthSession();
+const SheetComponent = ({ session }: Props) => {
   const [open, setOpen] = useState(false);
-
   return (
     <div className="fixed bottom-3 right-2">
-      <Sheet>
+      <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger className="bg-red-500 w-[60px] h-[60px] rounded-full flex justify-center items-center">
           <Plus size={50} />
         </SheetTrigger>
@@ -30,7 +32,7 @@ const SheetComponent = async (props: Props) => {
             <SheetTitle>{session?.user ? 'Create' : 'Please Sign In'}</SheetTitle>
             <SheetDescription>
               {session?.user ? (
-                <PostForm user={session?.user.id} open={open} setOpen={setOpen} />
+                <PostForm user={session?.user.id} setOpen={setOpen} />
               ) : (
                 <SignInButton text={'Sign In'} />
               )}

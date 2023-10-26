@@ -23,7 +23,7 @@ const PostList = ({ posts }: Props) => {
     }
   };
   return (
-    <div className="flex gap-[20px] flex-wrap">
+    <div className="flex flex-1 gap-[20px] flex-wrap">
       {optimisticPost?.posts.map(post => (
         <PostCard key={post._id} post={post} handleDelete={handleDelete} />
       ))}

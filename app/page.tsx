@@ -1,28 +1,24 @@
-import { getAllPost } from '@/actions/postActions'
-import Feature from '@/components/Feature'
-import PostForm from '@/components/PostForm'
-import PostList from '@/components/PostList'
-import Pagination from '@/components/Pagination'
-import Image from 'next/image'
-import { DialogTrigger } from '@/components/ui/dialog'
-import SheetComponent from '@/components/SheetComponent'
+import { getAllPost } from '@/actions/postActions';
+import PostList from '@/components/PostList';
+import Pagination from '@/components/Pagination';
+import SheetComponent from '@/components/SheetComponent';
+import { getAuthSession } from '@/lib/nextauth';
 
-export default async function Home({params,searchParams}:any) {
-  const {posts,totalPage,count} =await getAllPost(searchParams)
- 
-  
+export default async function Home({ params, searchParams }: any) {
+  const { posts, totalPage, count } = await getAllPost(searchParams);
+  const session = await getAuthSession();
+  const postObject = JSON.parse(JSON.stringify(posts));
+  const sessionObject = JSON.parse(JSON.stringify(session));
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between px-24 pt-10">
+    <div className="flex flex-1  flex-col items-center justify-between px-24 py-6">
+      <SheetComponent session={sessionObject} />
 
- 
-    <SheetComponent/>
-    
-    <div className='gallery'>
-       {posts ?<PostList posts={posts}/>:<div>Pots not exist</div> }
+      <div className="gallery flex-1">
+        {postObject ? <PostList posts={postObject} /> : <div>Pots not exist</div>}
+      </div>
+
+      {totalPage && <Pagination totalPage={totalPage} />}
     </div>
-    
- 
-    {totalPage && <Pagination totalPage={totalPage}/>}
-    </main>
-  )
+  );
 }
