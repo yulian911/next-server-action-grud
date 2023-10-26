@@ -2,6 +2,7 @@
 import React from 'react'
 import ButttonSubmit from './ButttonSubmit'
 import useCustomeRouter from '@/hooks/useCustomeRouter'
+import { Input } from './ui/input'
 
 type Props = {}
 
@@ -15,8 +16,8 @@ const SearchForm = (props: Props) => {
   }
 
   return (
-    <form action={handleSearch}>
-      <input type="search" name='search' placeholder='Search...' defaultValue={query.search ||''}/>
+    <form action={handleSearch} className='flex gap-4'>
+      <Input type="search" name='search' placeholder='Search...' defaultValue={query.search ||''}/>
       <ButttonSubmit value='search'/>
     </form>
   )

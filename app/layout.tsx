@@ -2,6 +2,8 @@ import { AppProvider } from '@/context/appContext'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import Navbar from '@/components/Navbar'
+import Providers from '@/components/Provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,10 +21,14 @@ export default function RootLayout(props:Props) {
   return (
     <html lang="en">
       <body className={inter.className}>
+        <Providers>
         <AppProvider>
-        {props.children}
-        {props.parallel}
+          <Navbar/>
+          {props.children}
+          {props.parallel}
         </AppProvider>
+        </Providers>
+       
         </body>
     </html>
   )

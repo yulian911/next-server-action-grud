@@ -9,7 +9,11 @@ type Props = {
 const ButttonSubmit = ({value}: Props) => {
   const { pending } = useFormStatus()
   return (
+    <>
+    
     <Button variant="outline" disabled={pending} type='submit'>{ pending ? 'Loading...' : value}</Button>
+    
+    </>
     )
 }
 

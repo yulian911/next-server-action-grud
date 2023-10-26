@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache"
 
 connectDb()
 
-export async function createPost(data:{title:string,image:string}) {
+export async function createPost(data:{title:string,image:string,author:string}) {
   try {
     const newPost =new Post(data)
    
@@ -32,10 +32,6 @@ export async function getAllPost(searchParams:{search:string,sort:string,limit:a
 
   try {
     const posts =await Post.find({title:{$regex:search}}).sort(sort).limit(limit).skip(skip)
-    
-    // if(posts) throw new Error("Posts error");
-    
-    
     const count =await Post.find({title:{$regex:search}}).count()
   
     const totalPage =Math.ceil(count/limit)
@@ -94,5 +90,43 @@ export async function getOnePost(postId:string) {
   } catch (error:any) {
     throw new Error(error.message || 'Failed to get post');
     
+  }
+}
+
+
+// likes 
+export async function likeThread(postId: string, userId: string) {
+  try { // Nawiązanie połączenia z bazą danych
+
+    const post = await Post.findById(postId);
+
+    if (!post) {
+      console.log('Thread not found');
+      return;
+    }
+
+    if (post.likedBy.includes(userId)) {
+     if(post.likes===0){
+          console.log('User has already liked this thread',post.likes);
+          return
+      }
+      post.likes --;
+      const indexToRemove = post.likedBy.indexOf(userId);
+      if (indexToRemove !== -1) {
+        post.likedBy.splice(indexToRemove, 1);
+    }
+      await post.save();
+      return;
+    }
+
+
+    post.likes += 1;
+    post.likedBy.push(userId);
+
+    await post.save();
+
+    console.log('Thread liked successfully',userId);
+  } catch (error) {
+    console.error('Error liking thread:', error);
   }
 }

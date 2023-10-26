@@ -8,11 +8,28 @@ const postSchema = new Schema(
       type: String,
       required: true,
     },
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    likes: {
+      type: Number,
+      default: 0,
+    },
+    likedBy: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
 
     image: {
       type: String,
       required: true,
     },
+    
+    
   },
   { timestamps: true },
 );
